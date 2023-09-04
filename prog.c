@@ -30,29 +30,64 @@ int main(int argc, char **argv) {
     printf("Digite a string a ser analisada (ex. 3+5*2+1*7): ");
     scanf("%s", str1);
 
-    if (!verificaParenteses(str1)) {
+    if (!verificaParenteses(str1)) 
+    {
         printf("Erro: a contagem de parênteses está incorreta.\n");
-        return 1;
+        return 0;
     }
 
     P.topo = 0;
-    while (str1[i]) {
-        if (str1[i] >= '0' && str1[i] <= '9')
-            str2[j] = str1[i], j++;
-        else {
+    int l = 0;
+    
+    //
+    while (str1[i] != '\0') 
+    {
+       
+        if (str1[i] >= '0' && str1[i] <= '9') 
+        {
+            char numero[20]; // Supomos que não haverá números com mais de 20 dígitos
+            int k = 0;
+            l=i;
+            while (str1[l] >= '0' && str1[l] <= '9') 
+            {                
+                printf("Analisado = %c\nIndice = %d\n",str1[l],l);
+                numero[l] = str1[l];
+               /*
+                printf("%c\n",numero[l]);
+                getchar(); 
+               */ 
+                
+                Push(&P,numero[l]);
+                
+                str2[l] = numero[l];               
+                l++;
+               
+            }
+
+                str2[l] = ','; 
+                      
+                
+            
+            i++;
+            
+            
+        } 
+        else 
+        {
             symbol_pilha = StackTopElement(P);
             symbol_str = str1[i];
-            while (symbol_pilha != VAZIA && !Comp(StackTopElement(P), symbol_str)) {
+            while (symbol_pilha != VAZIA && !Comp(StackTopElement(P), symbol_str)) 
+            {
                 symbol_pilha = Pop(&P);
-                str2[j] = symbol_pilha;
-                j++;
+                str2[j++] = symbol_pilha;
             }
             Push(&P, symbol_str);
+            i++;
         }
-        i++;
     }
 
-    do {
+    do 
+    {
         symbol_pilha = Pop(&P);
         str2[j] = symbol_pilha;
         j++;
@@ -62,6 +97,7 @@ int main(int argc, char **argv) {
     printf("\n");
     printf("String de entrada (infixa): %s\n", str1);
     printf("String de saida (posfixa): %s\n",str2);
+   
 
     if (verificaExpressao(str2))
         printf("A expressão está correta.\n");
