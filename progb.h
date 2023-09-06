@@ -1,24 +1,28 @@
 #include <stdlib.h>
 #include <stdio.h>
-
-typedef struct
+#include <string.h>
+#define MAX_ELEMENTOS 1000
+#define SIMBOLO_DESCONHECIDO 1
+#define VAZIA ' '    
+typedef char vetor[MAX_ELEMENTOS];
+typedef int vetor1[MAX_ELEMENTOS];
+typedef struct 
 {
-  int *dados;
-  int topo;
-  int tamanho;
-} PILHA;
+    int topo;
+    vetor Elementos;
+    vetor1 Numbers;
+               
+} Pilha;
 
-typedef struct
-{
-  char *string;
-  int tamanho;
-}EXPRESSAO;
-void oi();
-void ler_expressao(EXPRESSAO *expressao);
-int calcular_expressao_posfixa(PILHA *pilha);
-PILHA *criar_pilha(int tamanho);
-int desempilhar(PILHA *pilha);
-void empilhar(PILHA *pilha, int valor);
-void converter_expressao_posfixa(EXPRESSAO *expressao, PILHA *pilha);
-int precedencia(char operador);
-int validar_expressao(EXPRESSAO *expressao);
+
+
+int validar_expressao(char str1[]);
+void transFixa(Pilha P, char str1[], char str2[]);
+void Push(Pilha *pilha, char elemento);
+char Pop(Pilha *pilha);
+void PushInt(Pilha *pilha, int elemento);
+int PopInt(Pilha *pilha);
+char StackTopElement(Pilha P);
+int Comp(char Elem1, char Elem2);
+void Limpar(char *str);
+int Calcula(char str[]);
